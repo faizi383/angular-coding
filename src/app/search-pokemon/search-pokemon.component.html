@@ -1,11 +1,11 @@
 <div class="pokemon">
-  <img src="" alt="">
+    <img src="" alt="">
 </div>
 
 
 <div>
-  <input #pokemonName required>
-  <button (click)="searchPokemon(pokemonName.value)">Search</button>
+    <input #pokemonName required>
+    <button (click)="searchPokemon(pokemonName.value)">Search</button>
 </div>
 
 
@@ -13,78 +13,44 @@
 
 <ng-template #pokemonList>
 
-  <div>
-    <table class="table" style="width:100%" border="1">
-      <tr>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Weight</th>
-        <th>Height</th>
-        <th>Base Experience</th>
-      </tr>
-      <tr>
-        <td>{{pokemon.name}}</td>
-        <td>
-          <a><img src="{{pokemon.sprites.front_default}}"></a>
-        </td>
-        <td>{{pokemon.weight}}</td>
-        <td>{{pokemon.height}}</td>
-        <td>{{pokemon.base_experience}}</td>
-      </tr>
-    </table>
-  </div>
+    <div>
+        <table class="table" style="width:100%" border="1">
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Base Experience</th>
+            </tr>
+            <tr>
+                <td>{{pokemon.name}}</td>
+
+              <td>
+                  <div *ngIf="isSelected; else front">
+                        <a (click)="addToPokeball(pokemon.name)"><img src="{{pokemon.sprites.back_default}}"></a>
+                  </div>
+                  <ng-template #front>
+                      <a (click)="addToPokeball(pokemon.name)"><img src="{{pokemon.sprites.front_default}}"></a>
+                  </ng-template>
+
+                </td>
+
+                <td>{{pokemon.weight}}</td>
+                <td>{{pokemon.height}}</td>
+                <td>{{pokemon.base_experience}}</td>
+            </tr>
+        </table>
+    </div>
 
 
 </ng-template>
 
 <ng-template #nopokemon>
-  No pokemon found.
+    No pokemon found.
 </ng-template>
 
 
-<!--ngIf
-
-    <div class="c-tooltip">
-        +
-        <span class="c-tooltip__text">
-            <a class="js-trigger">Click Me to Open Modal</a>
-        </span>
-    </div>
-
-
-
-   Modal start here
-<div class="c-modal">
-  <div class="c-modal__content">
-    <header class="c-modal__header u-clearfix">
-      <h3 class="c-modal__heading">Upload Image</h3>
-      <span class="c-modal__close">X</span>
-    </header>
-
-    <section class="c-modal__body">
-      <img class="c-modal__image" src="assets/images/profile.png" alt="Image not found"/>
-      <div class="c-modal__description">
-        <h3>Default Profile Picture</h3>
-        <p> This is a default avator image, you are requested to <span class="u-info">upload</span> a profile
-          image.
-        </p>
-        <p>
-          <span class="bold">Note:</span>
-          Your image should be clear and recognizable. Best practice is to use the image of size 35 x 45.
-          Image should be in <i>.jpg .png</i> format only.
-        </p>
-        <label class="c-btn c-btn--file u-push--left">
-          <input type="file"/>
-          Choose Picture
-        </label>
-      </div>
-    </section>
-
-    <footer class="c-modal__footer">
-      <button type="button" class="c-btn c-btn--success u-mr--m">SUBMIT</button>
-      <button type="button" class="c-btn c-btn--danger">CANCEL</button>
-    </footer>
-  </div>
+<div *ngFor="let item of items">
+    {{item.pokemon.name}}
+    <img src="{{item.pokemon.sprites.front_default}}">
 </div>
-
--->
